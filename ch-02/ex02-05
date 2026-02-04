@@ -1,0 +1,27 @@
+#include <stdio.h>
+
+int any(char s1[], char s2[]);
+
+int main() {
+    char s1[] = "hello how are you.\n";
+    char s2[] = "ho";
+    int firstmatch = any(s1, s2);
+    if (firstmatch != -1)
+        printf("First match occured at index %d", firstmatch);
+    else 
+        printf("There was no matches!");
+    return 0;
+}
+
+int any(char s1[], char s2[]) {
+    int i,j;
+    unsigned char lookuptable[256] = {0};
+    for (i=0; s2[i] != '\0'; ++i) {
+        lookuptable[(unsigned char) s2[i]]++;
+    }
+    for (j=0; s1[j] != '\0'; ++j) {
+        if (lookuptable[(unsigned char) s1[j]])
+            return j;
+    }
+    return -1;
+}
